@@ -15,14 +15,24 @@ export class AppointmentService {
       throw new Error("appointment's end time should be after start time");
     }
 
-    if (
-      appointementData.endTime.getDay() !== appointementData.startTime.getDay()
-    ) {
+    if (this.endTimeIsInTheNextDay(appointementData)) {
       throw new Error("appointment's end time should be in same day");
     }
     return {
       ...appointementData,
       confirmed: false,
     };
+  }
+
+  private endTimeIsInTheNextDay(appointementData: AppointmentInput) {
+    const differentDays =
+      appointementData.endTime.getUTCDate() !==
+      appointementData.startTime.getUTCDate();
+
+    const differentMonths =
+      appointementData.endTime.getUTCMonth() !==
+      appointementData.startTime.getUTCMonth();
+
+    return differentDays || differentMonths;
   }
 }
