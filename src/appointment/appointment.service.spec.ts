@@ -80,7 +80,9 @@ describe('AppointmentService', () => {
         startTime,
         endTime,
       });
-    }).toThrow("appointment's end time should be in same day same months and same years");
+    }).toThrow(
+      "appointment's end time should be in same day same months and same years",
+    );
   });
 
   it('should throw an error when end time is in same day, hour and month of the next year', () => {
@@ -91,9 +93,9 @@ describe('AppointmentService', () => {
         patientId: 1,
         startTime,
         endTime,
-      })
+      }),
     ).toThrow(
-     "appointment's end time should be in same day same months and same years"
+      "appointment's end time should be in same day same months and same years",
     );
   });
 });

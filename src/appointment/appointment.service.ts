@@ -9,14 +9,15 @@ interface AppointmentInput {
 
 @Injectable()
 export class AppointmentService {
-  // we want the test to pass, so we don't give fully tape parameters hence any type
   public scheduleAppointment(appointmentData: AppointmentInput): Appointment {
     if (appointmentData.endTime <= appointmentData.startTime) {
       throw new Error("appointment's end time should be after start time");
     }
 
     if (this.endTimeIsInTheNextDay(appointmentData)) {
-      throw new Error("appointment's end time should be in same day same months and same years");
+      throw new Error(
+        "appointment's end time should be in same day same months and same years",
+      );
     }
     return {
       ...appointmentData,
@@ -33,10 +34,10 @@ export class AppointmentService {
       appointmentData.endTime.getUTCMonth() !==
       appointmentData.startTime.getUTCMonth();
 
-        // Now we also check for years
-  const differentYears =
-  appointmentData.endTime.getUTCFullYear() !==
-  appointmentData.startTime.getUTCFullYear();
+    // Now we also check for years
+    const differentYears =
+      appointmentData.endTime.getUTCFullYear() !==
+      appointmentData.startTime.getUTCFullYear();
 
     return differentDays || differentMonths || differentYears;
   }
