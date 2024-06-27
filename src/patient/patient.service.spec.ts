@@ -28,5 +28,11 @@ describe('PatientService', () => {
 
       expect(exist).toBe(false);
     });
+    it('should return true when patient was registered', async () => {
+      const { id: patientId } = await service.register({ name: 'TOTO' });
+      const exist = await service.doesPatientExist(patientId);
+
+      expect(exist).toBe(true);
+    });
   });
 });

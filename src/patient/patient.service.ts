@@ -7,14 +7,19 @@ export interface PatientInput {
 
 @Injectable()
 export class PatientService {
+  private readonly patients: Patient[] = [];
+
   async register(patientInput: PatientInput): Promise<Patient> {
-    return {
+    const newPatient = {
       id: 1,
       name: patientInput.name,
     };
+
+    this.patients.push(newPatient);
+    return newPatient;
   }
 
-  async doesPatientExist(patientInput: number): Promise<boolean> {
-    return false;
+  public async doesPatientExist(patientId: number): Promise<boolean> {
+    return this.patients.some((patient) => patient.id === patientId);
   }
 }
